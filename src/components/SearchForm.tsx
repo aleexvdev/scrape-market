@@ -1,16 +1,26 @@
 "use client"
 
 import { useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { Search } from 'lucide-react';
+import { searchProducts, setQuery } from '@/lib/redux/searchSlice';
 
 export const SearchForm = () => {
 
   const [localQuery, setlocalQuery] = useState<string>('');
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(setQuery(localQuery));
+    console.log('Submitted query:', localQuery);
+    dispatch(searchProducts({ query: localQuery}));
+  }
 
   return (  
-    <form className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4">
       <div className='flex gap-2'>
         <Input 
           type='text'

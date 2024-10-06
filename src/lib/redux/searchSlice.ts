@@ -20,6 +20,7 @@ export const searchProducts = createAsyncThunk(
   async (query: string) => {
     try {
       const results = await scrapeProducts(query);
+      console.log(results)
       return results;
     } catch (error) {
       console.error('Error fetching products:', error);
