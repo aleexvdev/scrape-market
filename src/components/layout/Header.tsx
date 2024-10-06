@@ -1,12 +1,17 @@
-"use client"
+"use client";
 
-// import { useDispatch } from "react-redux";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { Menu, ShoppingCart } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { Menu, MoonIcon, ShoppingCart, SunIcon } from "lucide-react";
 import { Button } from "../ui/button";
+import { useTheme } from "next-themes";
 
 export const Header = () => {
-  // const dispatch = useDispatch();
+  const { setTheme } = useTheme();
 
   return (
     <header className="py-4 responsive-padding bg-background border-b">
@@ -15,7 +20,11 @@ export const Header = () => {
         <div className="flex items-center space-x-2 sm:space-x-4">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="icon" className="hover-effect touch-effect">
+              <Button
+                variant="outline"
+                size="icon"
+                className="hover-effect touch-effect"
+              >
                 <ShoppingCart className="h-[1.2rem] w-[1.2rem]" />
               </Button>
             </DropdownMenuTrigger>
@@ -24,11 +33,35 @@ export const Header = () => {
               <DropdownMenuItem>Checkout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button variant={"outline"} size={"icon"} className="sm:hidden hover-effect touch-effect">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="icon">
+                <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                <span className="sr-only">Toggle theme</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={() => setTheme("light")}>
+                Light
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setTheme("dark")}>
+                Dark
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setTheme("system")}>
+                System
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <Button
+            variant={"outline"}
+            size={"icon"}
+            className="sm:hidden hover-effect touch-effect"
+          >
             <Menu className="h-[1.2rem] w-[1.2rem]" />
           </Button>
         </div>
       </div>
     </header>
   );
-}
+};
