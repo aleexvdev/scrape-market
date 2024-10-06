@@ -1,6 +1,9 @@
 export const scrapeProducts = async (query: string) => {
   console.log('Scraping products...', query);
 
+  // Simulate API call
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+
   return [
     {
       title: 'Sample Product 1',
